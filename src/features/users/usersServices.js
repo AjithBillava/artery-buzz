@@ -9,11 +9,9 @@ export const getCurrentUser = async() =>{
 }
 
 export const loginUser = async({email,password})=>{
-    console.log(password,email)
+    
     const {data} = await axios.post(`${backendUrl}/user/login`,{email,password})
-    // const {data} = await axios.post(`${backendUrl}/user/login`,{email:"test@gmail.com",password:"123456"})
-    console.log(data)
-    // navigate(state?.from?state.from:"/")
+   
     return data
 }
 
@@ -25,5 +23,10 @@ export const registerUser = async({email,password,firstname,lastname,username,})
 
 export const editUserData = async({userId,...rest}) =>{
     const {data} = await axios.post(`${backendUrl}/user/${userId}/updateUser`,{...rest},TokenConfig())
+    return data
+}
+
+export const getAllUsers = async({userId}) =>{
+    const {data} = await axios.get(`${backendUrl}/user/${userId}`,TokenConfig())
     return data
 }

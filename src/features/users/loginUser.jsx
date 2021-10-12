@@ -22,7 +22,7 @@ export const LoginPage = () =>{
         dispatch(login({email,password}))
         
     }
-    console.log(isAuthenticated)
+    // console.log(isAuthenticated)
     
     return (
         <div>

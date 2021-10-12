@@ -9,7 +9,7 @@ export const EditUserProfile = () =>{
     const {currentUser} = useSelector(state=>state.user)
 
     const {firstname,lastname,bio,profilePic,website} = currentUser
-    console.log(currentUser)
+    // console.log(currentUser)
     const handleOnSubmit = (e) =>{
         e.preventDefault()
 

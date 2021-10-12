@@ -4,7 +4,7 @@ import { Navigate, Route } from "react-router-dom"
 export const PrivateRoute = ({path,...props}) =>{
 
     const token = localStorage.getItem("token")
-    console.log(token)
+    // console.log(token)
     return(
 
         token?

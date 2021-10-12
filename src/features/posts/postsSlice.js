@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
+import { TokenConfig } from "../users/userSlice"
 
 const initialState = {
     status:"idle",
@@ -8,6 +9,7 @@ const initialState = {
     error:null
 }
 
+
 const backendUrl = process.env.REACT_APP_BACKEND_URL
 
 const fetchPostData = createAsyncThunk("posts/loadPosts",async()=>{
@@ -15,8 +17,17 @@ const fetchPostData = createAsyncThunk("posts/loadPosts",async()=>{
     return data
 })
 
-const likePost = createAsyncThunk("posts/likePost",async(userId,postId)=>{
-    const {data} = await axios.post(`${backendUrl}/${userId}/${postId}/likeUnlikePost`)
+const likePost = createAsyncThunk("posts/likePost",async(userAndpostIds)=>{
+    const {postId,userId}=userAndpostIds
+    console.log(postId,userId)
+    const {data} = await axios.post(`${backendUrl}/${userId}/${postId}/likeUnlikePost`,{}, TokenConfig())
+    console.log(data)
+    return data
+})
+const unLikePost = createAsyncThunk("posts/unlikePost",async({userId,postId})=>{
+    console.log(postId,userId)
+    const {data} = await axios.put(`${backendUrl}/${userId}/${postId}/likeUnlikePost`,{},TokenConfig())
+    console.log(data)
     return data
 })
 
@@ -37,21 +48,36 @@ export const postSlice = createSlice(
             [fetchPostData.fulfilled]:(state,action) =>{
                 state.status="fulfilled"
                 state.posts = action.payload.posts
-                console.log(state.posts)
+                // console.log(state.posts)
             },
             [fetchPostData.rejected]:(state,action) =>{
-                state.posts="error"
+                state.status="error"
                 state.posts = action.payload.error
             },
             [likePost.fulfilled]:(state,action)=>{
                 // state.status = "fulfilled"
                 state.posts = action.payload.posts
-            }
+            },
+            [likePost.rejected]:(state,action)=>{
+                state.status = "error"
+                localStorage.removeItem("token")
+                state.posts = action.payload.posts
+            },
+            [unLikePost.fulfilled]:(state,action)=>{
+                // state.status = "fulfilled"
+                state.posts = action.payload.posts
+            },
+            [unLikePost.rejected]:(state,action)=>{
+                // state.status = "fulfilled"
+                state.status = "error"
+                localStorage.removeItem("token")
+                state.posts = action.payload.posts
+            },
             
             
         }
     }
 )
 
-export {fetchPostData,likePost}
+export {fetchPostData,likePost,unLikePost}
 export default postSlice.reducer

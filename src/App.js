@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 // import { Counter } from './features/counter/Counter';
 import './App.css';
 import { Route,Routes} from "react-router-dom"
-import { Posts } from './features/posts/posts';
+import { Posts } from './features/posts/postsLists';
 import { LoginPage } from './features/users/loginUser';
 import { PrivateRoute } from './features/users/privateRoute';
 import {BrowserRouter as Router} from "react-router-dom"
@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { getUserData } from './features/users/userSlice';
 import { fetchPostData } from './features/posts/postsSlice';
 import { EditUserProfile } from './features/users/editProfile';
+import { Header } from './features/Header/header';
 
 function App() {
 
@@ -27,24 +28,25 @@ function App() {
 // }
   
    
-    (async()=>{
-      if(token!==null){
+    // (async()=>{
+      if(token){
         dispatch(fetchPostData())
-        console.log("hiiiii")
+        // console.log("hiiiii")
         dispatch(getUserData())
 }
-    })()
+    // })()
     // let isMounted=false
     // if(isMounted){
     //         dispatch(fetchPostData())
     //         dispatch(getUserData())
     // }
     // return isMounted=true
-},[])
+},[token,dispatch])
 
   return (
     <div className="App">
       <Router>
+      <Header/>
         <Routes>
           <PrivateRoute path="/"  element={<Posts/>}/>
           <Route path="/login"  element={<LoginPage/>}/>
