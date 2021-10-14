@@ -18,6 +18,11 @@ const fetchPostData = createAsyncThunk("posts/loadPosts",async()=>{
     return data
 })
 
+const addNewPost = createAsyncThunk("posts/newUserPost",async({userId,content})=>{
+    await axios.post(`${backendUrl}/${userId}/newPost`,{content},TokenConfig())
+    const {data} = await axios.get(`${backendUrl}/feed`)
+    return data
+})
 const likePost = createAsyncThunk("posts/likePost",async(userAndpostIds)=>{
     const {postId,userId}=userAndpostIds
     console.log(postId,userId)
@@ -60,6 +65,10 @@ export const postSlice = createSlice(
                 state.status="error"
                 state.posts = action.payload.error
             },
+            [addNewPost.fulfilled]:(state,action)=>{
+                state.status = "fulfilled"
+                state.posts = action.payload.posts
+            },
             [likePost.fulfilled]:(state,action)=>{
                 // state.status = "fulfilled"
                 state.posts = action.payload.posts
@@ -85,5 +94,5 @@ export const postSlice = createSlice(
     }
 )
 
-export {fetchPostData,likePost,unLikePost}
+export {fetchPostData,addNewPost,likePost,unLikePost}
 export default postSlice.reducer

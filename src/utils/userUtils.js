@@ -32,6 +32,12 @@ export const getFormValues = (event,type) =>{
 
             return {firstname,lastname,profilePic,bio,website}
         }
+        case "newUserPost":{
+            const{
+                content:{value:content} 
+            }= event.target
+            return{content}
+        }
         default:{
             return new Error("Invalid selection")
         }

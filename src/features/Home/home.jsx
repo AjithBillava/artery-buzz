@@ -21,7 +21,7 @@ export const Home = () =>{
 {/*           
           <PrivateRoute path="profile"  element={<Profile/>}/>
           <PrivateRoute path=":username"  element={<Profile/>}/> */}
-          <PrivateRoute path="editProfile"  element={<EditUserProfile/>}/>
+          {/* <PrivateRoute path="editProfile"  element={<EditUserProfile/>}/> */}
           
           {/* <PrivateRoute path="/editProfile"  element={<EditUserProfile/>}/> */}
         </Routes>

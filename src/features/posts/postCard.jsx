@@ -42,12 +42,12 @@ export const PostCard = ({post,userId,currentUser}) =>{
                         <div>
                             {content}
                             <div className="flex justify-around ">
-                                <div className="flex items-center cursor-pointer  "  onClick={() => handleLikeButton(userId,postId,likedUsers,dispatch,setLikeButtonColor)}>
-                                <div className=" z-10">
+                                <div className="flex items-center " >
+                                <button className=" cursor-pointer  "  onClick={(e) => handleLikeButton(e,userId,postId,likedUsers,dispatch,setLikeButtonColor)}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 " title="like" fill={likeButtonColor} viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                     </svg>
-                                </div>
+                                </button>
                                     {/* <button title="like"></button> */}
                                     <p>{likedUsers?.length} </p>
                                 </div>

@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 // import { useLocation } from "react-router"
@@ -8,7 +8,7 @@ import { login } from "./userSlice"
 
 export const LoginPage = () =>{
 
-    const {status,isAuthenticated} = useSelector(state => state.user)
+    const {isAuthenticated} = useSelector(state => state.user)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(()=>{
@@ -22,23 +22,36 @@ export const LoginPage = () =>{
         dispatch(login({email,password}))
         
     }
-    // console.log(isAuthenticated)
+    const inputFocused = useRef(null)
+    
+    useEffect(()=>{
+        inputFocused.current.focus()
+    },[])
+    
+    const [emailValue,setEmailValue] = useState("")
+    const [passwordValue,setPasswordValue] = useState("")
     
     return (
-        <div>
-            {status==="loading" && <h2>loading</h2> }
-            {status==="error" && <h2>error</h2> }
-            <form onSubmit={(e)=>handelOnsubmit(e)} >
+        <div className="flex flex-col p-4 justify-center items-center " >
+            <h2 className="font-bold text-3xl">Login</h2>
+            <form className="flex flex-col border border-primaryColor rounded-md p-2 mt-5 w-full" onSubmit={(e)=>handelOnsubmit(e)} >
 
                 <div>
-                    <label htmlFor="email">email</label>
-                    <input type="text" name="email" required={true} ></input>
+                <div className="flex flex-col pb-3">
+                    <label className="font-semibold" htmlFor="email">email</label>
+                    <input className="border-2 p-1" ref={inputFocused} value={emailValue} type="text" name="email" required={true} ></input>
                 </div>
-                <div>
-                    <label htmlFor="password">password</label>
-                    <input type="password" name="password" required={true} ></input>
+                <div className="flex flex-col pb-3">
+                    <label className="font-semibold" htmlFor="password">password</label>
+                    <input className="border-2 p-1" value={passwordValue} type="password" name="password" required={true} ></input>
                 </div>
-                <button type="submit" >login</button>
+                </div>
+                <div className="flex flex-col items-center justify-center">
+                    <button className=" p-1 px-2 min-w-min border border-primaryColor hover:bg-primaryColor rounded-md mb-4" onClick={()=>{
+                        setEmailValue("test@gmail.com")
+                        setPasswordValue("123456")}} > test credentials</button>
+                    <button className="p-1 px-2 min-w-min bg-primaryColor rounded-md " type="submit" >login</button>
+                </div>
             </form>
 
         </div>
