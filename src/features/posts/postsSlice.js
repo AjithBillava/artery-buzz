@@ -14,6 +14,7 @@ const backendUrl = process.env.REACT_APP_BACKEND_URL
 
 const fetchPostData = createAsyncThunk("posts/loadPosts",async()=>{
     const {data} = await axios.get(`${backendUrl}/feed`)
+    console.log(data)
     return data
 })
 
@@ -39,6 +40,11 @@ export const postSlice = createSlice(
             // clickedPostLikeButton: (state,action)=>{
             //     const foundPost = state.posts.findIndex(post=>(post.postId = action.payload))
                 
+            // }
+            // getCurrentPost :(state)=>{
+                
+            //     let currentPost = posts.filter(post=>post._id===postId)
+            //     currentPost = currentPost[0]
             // }
         },
         extraReducers:{

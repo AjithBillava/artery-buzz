@@ -32,7 +32,11 @@ const editUserProfile = createAsyncThunk("user/editUserProfile",editUserData)
 const userSlice = createSlice({
     name:"user",
     initialState:initialState,
-    reducers:{},
+    reducers:{
+        changeStatusToSucess:(state)=>{
+            state.status="fulifilled"
+        }
+    },
     extraReducers:{
         [getUserData.pending]:(state)=>{
             state.status="loading"
@@ -62,10 +66,12 @@ const userSlice = createSlice({
         },
         [editUserProfile.fulfilled]:(state,action) =>{
             state.currentUser = action.payload.user
+            state.status="idle"
         }
     }
 })
 
 
+export const {changeStatusToSucess} = userSlice.actions
 export {login,register,getUserData,getAllUsersData,editUserProfile}
 export default userSlice.reducer
