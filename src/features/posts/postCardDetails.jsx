@@ -37,7 +37,7 @@ return (
         {userStatus==="loading" && <h2>loading</h2> }
 
         {userStatus==="fulfilled" && 
-            <div className="flex p-2 border-2 border-gray-200 mb-1 ">
+            <div className="flex p-2 border-2 border-gray-200 mt-8">
                 <Avatar firstname={currentPost?.author?.firstname} lastname={currentPost?.author?.lastname} profilePic={currentPost?.author ? currentPost?.author?.profilePic : currentUser?.profilePic} username={currentPost?.author?.username} />
 
                 <div className="w-screen ml-2">
@@ -47,7 +47,7 @@ return (
                     </div>
                     <div>
                         {currentPost?.content}
-                        <div className="flex justify-around">
+                        <div className="flex justify-around mt-4">
                             <div className="flex items-center " >
                                 <button  className="cursor-pointer  " onClick={(e) => handleLikeButton(e,userId,postId,currentPost?.likedUsers,dispatch,setLikeButtonColor)} >
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 " title="like" fill={likeButtonColor} viewBox="0 0 24 24" stroke="currentColor">

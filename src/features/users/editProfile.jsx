@@ -10,7 +10,7 @@ export const EditUserProfile = () =>{
     return(
        <>
         {status==="loading"&& <h2>loading</h2> }
-        <button onClick={()=>setShowEditProfileModal(true)} className="p-2 flex bg-gray-100 rounded-md ">
+        <button onClick={()=>setShowEditProfileModal(true)} className="p-2 flex bg-gray-300 rounded-md ">
             Edit Profile
         </button>
         {
@@ -42,7 +42,7 @@ const EditProfileModal =( {toggleModalView} )=>{
     },[])
     
     return(
-        <div className=" flex flex-col items-center w-screen fixed justify-center top-0 left-0 bg-black bg-opacity-75 backdrop-filter backdrop-blur-sm h-screen z-10 p-2" >
+        <div className=" flex md:text-xl flex-col items-center w-screen fixed justify-center top-0 left-0 bg-black bg-opacity-75 backdrop-filter backdrop-blur-sm  md:px-16 lg:px-32 h-screen z-10 p-2" >
             <section className="bg-white flex flex-col p-4 w-full h-4/5 rounded-md relative ">
                 
                 <form className="sticky overflow-y-auto" onSubmit={(e)=>{handleOnSubmit(e) 

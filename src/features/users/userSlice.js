@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { editUserData, getAllUsers, getCurrentUser, loginUser, registerUser } from "./usersServices";
+import {  editUserDataService,  followUserService,  getAllUsersService,  getCurrentUserService,  getUserNotificationService,  loginUserService,  readUserNotificationService,  registerUserService, unFollowUserService } from "./usersServices";
 
 const initialState = {
     currentUser:{},
+    notifications:[],
     allUsers:[],
     status:"idle",
     isAuthenticated:false
@@ -23,11 +24,16 @@ export const TokenConfig = () => {
 
 	return config;
 };
-const getUserData = createAsyncThunk("user/loadUser",getCurrentUser)
-const getAllUsersData = createAsyncThunk("user/loadAllUsers",getAllUsers)
-const login= createAsyncThunk("user/login",loginUser)
-const register = createAsyncThunk("user/register",registerUser)
-const editUserProfile = createAsyncThunk("user/editUserProfile",editUserData)
+const getUserData = createAsyncThunk("user/loadUser",getCurrentUserService)
+const getAllUsersData = createAsyncThunk("user/loadAllUsers",getAllUsersService)
+const getUserNotification = createAsyncThunk("user/notifications",getUserNotificationService)
+const readUserNotification = createAsyncThunk("user/readNotification",readUserNotificationService)
+const login= createAsyncThunk("user/login",loginUserService)
+const register = createAsyncThunk("user/register",registerUserService)
+const editUserProfile = createAsyncThunk("user/editUserProfile",editUserDataService)
+const followUser = createAsyncThunk("user/follow",followUserService)
+const unFollowUser = createAsyncThunk("user/unFollow",unFollowUserService)
+
 
 const userSlice = createSlice({
     name:"user",
@@ -53,7 +59,22 @@ const userSlice = createSlice({
         },
         [getAllUsersData.fulfilled]:(state,action)=>{
             state.allUsers=action.payload.users
+        }, 
+        [getUserNotification.pending]:(state)=>{
+            state.status="loading"
         },
+        [getUserNotification.fulfilled]:(state,action)=>{
+            state.notifications = action.payload.notifications
+            state.status="fulfilled"
+        },
+        [readUserNotification.pending]:(state)=>{
+            state.status="loading"
+        },
+        [readUserNotification.fulfilled]:(state,action)=>{
+            state.notifications = action.payload.notifications
+            state.status="fulfilled"
+        },
+        
         [login.fulfilled]:(state,action) =>{
             localStorage.setItem("token",action.payload.token)
             state.currentUser = action.payload.user
@@ -67,11 +88,20 @@ const userSlice = createSlice({
         [editUserProfile.fulfilled]:(state,action) =>{
             state.currentUser = action.payload.user
             state.status="idle"
+        },
+        [followUser.fulfilled]:(state,action)=>{
+            state.currentUser = action.payload.user
+            state.status = "idle"
+        },
+        [unFollowUser.fulfilled]:(state,action)=>{
+            state.currentUser = action.payload.user
+            state.status = "idle"
         }
     }
 })
 
 
 export const {changeStatusToSucess} = userSlice.actions
-export {login,register,getUserData,getAllUsersData,editUserProfile}
+export {login,register,getUserData,getAllUsersData,editUserProfile,followUser,unFollowUser,getUserNotification
+    ,readUserNotification}
 export default userSlice.reducer

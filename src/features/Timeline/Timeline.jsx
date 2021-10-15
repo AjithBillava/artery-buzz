@@ -18,7 +18,7 @@ import { Profile } from "../users/profile"
    console.log(posts)
 //    console.log(userProfile,userPosts)
     return(
-        <div>
+        <div className="md:border-2 md:border-gray-200 md:m-5 rounded-md md:p-5 lg:mx-32 ">
             <Profile userProfile={userProfile} />
             {/* {userPosts?.map(posts=>(
                     posts.map(post=>(

@@ -10,7 +10,7 @@ import {BrowserRouter as Router} from "react-router-dom"
 import { RegisterPage } from './features/users/registerUser';
 import { Profile } from './features/users/profile';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsersData, getUserData } from './features/users/userSlice';
+import { getAllUsersData, getUserData, getUserNotification } from './features/users/userSlice';
 import { fetchPostData } from './features/posts/postsSlice';
 import { EditUserProfile } from './features/users/editProfile';
 import { Header } from './features/Header/header';
@@ -25,8 +25,9 @@ function App() {
 
       if(token){
         dispatch(fetchPostData())
-        // console.log("hiiiii")
+        // console.log(currentUser._id)
         dispatch(getUserData())
+        dispatch(getUserNotification(currentUser._id))
         dispatch(getAllUsersData(currentUser._id))
       }
    

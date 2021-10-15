@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import axios from "axios"
-import { TokenConfig } from "../users/userSlice"
+import { addNewUserPostService, getAllPostsService, likePostService, unLikePostService } from "./postServices"
 
 const initialState = {
     status:"idle",
@@ -9,48 +8,20 @@ const initialState = {
     error:null
 }
 
+const fetchPostData = createAsyncThunk("posts/loadPosts",getAllPostsService)
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL
+const addNewPost = createAsyncThunk("posts/newUserPost",addNewUserPostService)
 
-const fetchPostData = createAsyncThunk("posts/loadPosts",async()=>{
-    const {data} = await axios.get(`${backendUrl}/feed`)
-    console.log(data)
-    return data
-})
+const likePost = createAsyncThunk("posts/likePost",likePostService)
 
-const addNewPost = createAsyncThunk("posts/newUserPost",async({userId,content})=>{
-    await axios.post(`${backendUrl}/${userId}/newPost`,{content},TokenConfig())
-    const {data} = await axios.get(`${backendUrl}/feed`)
-    return data
-})
-const likePost = createAsyncThunk("posts/likePost",async(userAndpostIds)=>{
-    const {postId,userId}=userAndpostIds
-    console.log(postId,userId)
-    const {data} = await axios.post(`${backendUrl}/${userId}/${postId}/likeUnlikePost`,{}, TokenConfig())
-    console.log(data)
-    return data
-})
-const unLikePost = createAsyncThunk("posts/unlikePost",async({userId,postId})=>{
-    console.log(postId,userId)
-    const {data} = await axios.put(`${backendUrl}/${userId}/${postId}/likeUnlikePost`,{},TokenConfig())
-    console.log(data)
-    return data
-})
+const unLikePost = createAsyncThunk("posts/unlikePost",unLikePostService)
 
 export const postSlice = createSlice(
     {
         name:"posts",
         initialState:initialState,
         reducers:{
-            // clickedPostLikeButton: (state,action)=>{
-            //     const foundPost = state.posts.findIndex(post=>(post.postId = action.payload))
-                
-            // }
-            // getCurrentPost :(state)=>{
-                
-            //     let currentPost = posts.filter(post=>post._id===postId)
-            //     currentPost = currentPost[0]
-            // }
+
         },
         extraReducers:{
             [fetchPostData.pending]:(state) =>{
@@ -59,7 +30,7 @@ export const postSlice = createSlice(
             [fetchPostData.fulfilled]:(state,action) =>{
                 state.status="fulfilled"
                 state.posts = action.payload.posts
-                // console.log(state.posts)
+                
             },
             [fetchPostData.rejected]:(state,action) =>{
                 state.status="error"
@@ -70,7 +41,7 @@ export const postSlice = createSlice(
                 state.posts = action.payload.posts
             },
             [likePost.fulfilled]:(state,action)=>{
-                // state.status = "fulfilled"
+               
                 state.posts = action.payload.posts
             },
             [likePost.rejected]:(state,action)=>{
@@ -79,11 +50,11 @@ export const postSlice = createSlice(
                 state.posts = action.payload.posts
             },
             [unLikePost.fulfilled]:(state,action)=>{
-                // state.status = "fulfilled"
+                
                 state.posts = action.payload.posts
             },
             [unLikePost.rejected]:(state,action)=>{
-                // state.status = "fulfilled"
+                
                 state.status = "error"
                 localStorage.removeItem("token")
                 state.posts = action.payload.posts
