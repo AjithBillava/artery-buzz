@@ -43,3 +43,16 @@ export const getFormValues = (event,type) =>{
         }
     }
 }
+export  const checkIfFollowing=(myFollowings, userProfileId)=>{
+    return myFollowings?.find(user=>user?._id===userProfileId)
+}
+
+export const handleOnFollow =(e,userId,followedUserId,dispatch,followUser)=>{
+    e.preventDefault()
+    dispatch(followUser({userId,followedUserId}))
+}
+export const handleOnUnfollow =(e,userId,unfollowedUserId,dispatch,unFollowUser)=>{
+    e.preventDefault()
+    console.log(userId,unfollowedUserId)
+    dispatch(unFollowUser({userId,unfollowedUserId}))
+}

@@ -1,9 +1,7 @@
 
 import { useDispatch } from "react-redux"
 import { Avatar } from "../Header/avatar"
-import { likePost, unLikePost } from "./postsSlice"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 import { checkLikeStatus, handleLikeButton } from "../../utils/postUtils"
 
 export const PostCard = ({post,userId,currentUser}) =>{
@@ -13,10 +11,6 @@ export const PostCard = ({post,userId,currentUser}) =>{
   
     const {author,content,likedUsers,_id:postId} = post
    
-  
-
-    // console.log(post ,typeof author,likedUsers)
-
     useEffect(() => {
         console.log(likedUsers,userId)
         if(checkLikeStatus(likedUsers,userId)){
@@ -30,7 +24,6 @@ export const PostCard = ({post,userId,currentUser}) =>{
     return(
         <div >
             {
-                // typeof (author)!=="string"?
                 <div className="flex p-2 border-2 border-gray-200 mb-1 ">
                     <Avatar firstname={author?.firstname} lastname={author?.lastname} profilePic={author?author?.profilePic:currentUser?.profilePic} username={author?.username} />
 
@@ -43,12 +36,11 @@ export const PostCard = ({post,userId,currentUser}) =>{
                             {content}
                             <div className="flex justify-around mt-4 ">
                                 <div className="flex items-center " >
-                                <button className=" cursor-pointer  "  onClick={(e) => handleLikeButton(e,userId,postId,likedUsers,dispatch,setLikeButtonColor)}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 " title="like" fill={likeButtonColor} viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                    </svg>
-                                </button>
-                                    {/* <button title="like"></button> */}
+                                    <button className=" cursor-pointer  "  onClick={(e) => handleLikeButton(e,userId,postId,likedUsers,dispatch,setLikeButtonColor)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 " title="like" fill={likeButtonColor} viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                        </svg>
+                                    </button>
                                     <p>{likedUsers?.length} </p>
                                 </div>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">

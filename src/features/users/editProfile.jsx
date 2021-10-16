@@ -22,17 +22,14 @@ export const EditUserProfile = () =>{
 const EditProfileModal =( {toggleModalView} )=>{
     const dispatch = useDispatch()
     const {currentUser} = useSelector(state=>state.user)
-    // const navigate = useNavigate()
 
     const {firstname,lastname,bio,profilePic,website} = currentUser
-    // console.log(currentUser)
     const handleOnSubmit = (e) =>{
         e.preventDefault()
         const userId=currentUser._id
         const {...rest} = getFormValues(e,"editUserProfile")
         dispatch(editUserProfile({userId,...rest}))
        
-        // .then(user=>navigate("/profile"))
     }
 
     const inputFocused = useRef(null)

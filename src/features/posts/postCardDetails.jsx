@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { checkLikeStatus, handleLikeButton } from "../../utils/postUtils"
 import { Avatar } from "../Header/avatar"
-// import { PostDetailedCardView } from "./PostDetailedCardView"
 
 export function PostCardDetails (){
 const {postId} = useParams()
@@ -17,7 +16,6 @@ console.log(posts,currentPost)
 
 const userId = currentUser._id
 console.log(currentPost);
-// const { author, content, likedUsers } = currentPost;
 
 const [likeButtonColor, setLikeButtonColor] = useState("none");
 useEffect(() => {

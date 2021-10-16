@@ -1,7 +1,5 @@
-import { useEffect, useRef, useState,useReducer } from "react"
+import { useEffect, useRef,useReducer } from "react"
 import { useDispatch } from "react-redux"
-import { useSelector } from "react-redux"
-// import { useLocation } from "react-router"
 import { useNavigate } from "react-router-dom"
 import { getFormValues } from "../../utils/userUtils"
 import { login } from "./userSlice"
@@ -51,8 +49,6 @@ export const LoginPage = () =>{
         emailValue:"",
         passwordValue:""
     })
-    // const [emailValue,setEmailValue] = useState("")
-    // const [passwordValue,setPasswordValue] = useState("")
     
     return (
         <div className="flex flex-col p-4 justify-center items-center " >

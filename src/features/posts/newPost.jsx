@@ -13,7 +13,6 @@ export const NewPost = ({btnStyle,btnText}) =>{
         <>
             {status==="loading"&& <h2>loading</h2> }
 
-            {/* <button className="p-2 flex bg-gray-100 rounded-md "> */}
             <button  onClick={()=>setShowNewPostForm(true)} className={`${btnStyle}`}>
                 {btnText}
             </button>
@@ -26,11 +25,11 @@ const NewPostModal=({toggleModalView})=>{
 
     return(
         <div className=" flex flex-col w-screen fixed justify-center top-0 left-0 bg-black bg-opacity-75 backdrop-filter backdrop-blur-sm h-screen z-10 p-10" >
-            <NewPostForm toggleModalView={toggleModalView}/>
+            <NewPostForm type="Mobile" toggleModalView={toggleModalView}/>
         </div>
     )
 }
-export const NewPostForm = ({toggleModalView})=>{
+export const NewPostForm = ({toggleModalView,type})=>{
     
     const dispatch = useDispatch()
     const {currentUser} = useSelector(state=>state.user)
@@ -39,7 +38,7 @@ export const NewPostForm = ({toggleModalView})=>{
     const inputFocused = useRef(null)
     const [postContent,setPostContent] = useState("")
     useEffect(()=>{
-        inputFocused.current.focus()
+        inputFocused?.current?.focus()
     },[])
 
     const handleOnSubmit = (e,toggleModalView) =>{
@@ -49,11 +48,10 @@ export const NewPostForm = ({toggleModalView})=>{
         dispatch(addNewPost({userId,content}))
         setPostContent("")
         toggleModalView && toggleModalView(false)
-        // dispatch(editUserProfile({userId,...rest}))
-        // .then(user=>navigate("/profile"))
+        
     }
     return(
-        <div>
+        <div >
             <section className="bg-white border-2 border-gray-200 mb-1 flex flex-col p-4 w-full rounded-md relative ">
                 
                 <form onSubmit={(e)=>handleOnSubmit(e,toggleModalView)} >
@@ -68,9 +66,15 @@ export const NewPostForm = ({toggleModalView})=>{
                         <div>
                             <Avatar firstname={firstname} lastname={lastname} profilePic={profilePic} username={username}/>
                         </div>
-                        <textarea value={postContent} onChange={(e)=>setPostContent(e.target.value)} ref={inputFocused} placeholder="Share your story..." name="content" className="flex flex-col w-full p-4 text-xl outline-none">
+                        {
+                            type && type==="Mobile"?
+                            <textarea value={postContent} onChange={(e)=>setPostContent(e.target.value)} ref={inputFocused} placeholder="Share your story..." name="content" className="flex flex-col w-full p-4 text-xl outline-none">
 
-                        </textarea>
+                            </textarea>:
+                            <textarea value={postContent} onChange={(e)=>setPostContent(e.target.value)} placeholder="Share your story..." name="content" className="flex flex-col w-full p-4 text-xl outline-none">
+
+                            </textarea>
+                        }
                         
                     </section>
                     <div className="flex flex-col items-end mt-5 ml-5 ">

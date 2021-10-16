@@ -1,20 +1,12 @@
-// import { useEffect } from "react"
-// import { useDispatch, useSelector } from "react-redux"
-// import { useEffect } from "react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
+import { checkIfFollowing, handleOnFollow, handleOnUnfollow } from "../../utils/userUtils"
 
-// import { useParams } from "react-router-dom"
 
 import { EditUserProfile } from "./editProfile"
 import { followUser, getAllUsersData, getUserData, unFollowUser } from "./userSlice"
-// import { CurrentUserPost } from "./currentUserPosts"
-// import { fetchPostData} from "../posts/postsSlice"
-// import { getAllUsersData, getUserData} from "./userSlice"
-// import { Posts } from "../posts/postsLists"
-// import { getCurrentUser } from "./usersServices"
 
-// import { getUserData } from "./userSlice"
 
 export const Profile = ({userProfile}) =>{
 
@@ -27,9 +19,7 @@ export const Profile = ({userProfile}) =>{
     const noOfFollowers=userProfile?.followers?.length
     const noOfFollowings=userProfile?.following?.length
 
-    const checkIfFollowing=(userProfileId)=>{
-        return myFollowings?.find(user=>user?._id===userProfileId)
-    }
+   
     const dispatch = useDispatch()
     console.log(status)
     useEffect(()=>{
@@ -40,15 +30,7 @@ export const Profile = ({userProfile}) =>{
         }
     },[status])
 
-    const handleOnFollow =(e,userId,followedUserId)=>{
-        e.preventDefault()
-        dispatch(followUser({userId,followedUserId}))
-    }
-    const handleOnUnfollow =(e,userId,unfollowedUserId)=>{
-        e.preventDefault()
-        console.log(userId,unfollowedUserId)
-        dispatch(unFollowUser({userId,unfollowedUserId}))
-    }
+    
     
     return(
         <>
@@ -76,12 +58,12 @@ export const Profile = ({userProfile}) =>{
                             userId!==userProfile?._id?
                             <>
                             {
-                                checkIfFollowing(userProfile?._id)?
-                                <button onClick={(e)=>handleOnUnfollow(e,userId,userProfile?._id)} className="p-2 flex bg-primaryColor rounded-md ">
+                                checkIfFollowing(myFollowings,userProfile?._id)?
+                                <button onClick={(e)=>handleOnUnfollow(e,userId,userProfile?._id,dispatch,followUser)} className="p-2 flex bg-primaryColor rounded-md ">
                                     unfollow
                                 </button>
                                 :
-                                <button onClick={(e)=>handleOnFollow(e,userId,userProfile?._id)} className="p-2 flex bg-primaryColor rounded-md ">
+                                <button onClick={(e)=>handleOnFollow(e,userId,userProfile?._id,dispatch,unFollowUser)} className="p-2 flex bg-primaryColor rounded-md ">
                                     follow
                                 </button>
                             }
@@ -101,8 +83,8 @@ export const Profile = ({userProfile}) =>{
                     <a href={`${userProfile?.website}`} rel="noreferrer" target="_blank" >{userProfile?.website}</a>
                 </div>
                 <div className="flex flex-row justify-around text-gray-500">
-                    <p><span className="font-semibold text-black" >{noOfFollowers}</span> followers</p>
-                    <p><span className="font-semibold text-black" >{noOfFollowings}</span> following</p>
+                    <Link to={`/${userProfile?.username}/followers`}><span className="font-semibold text-black" >{noOfFollowers}</span> followers</Link>
+                    <Link to={`/${userProfile?.username}/following`}><span className="font-semibold text-black" >{noOfFollowings}</span> following</Link>
                 </div>
                     </div>
                 }

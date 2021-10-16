@@ -3,16 +3,13 @@ import React, { useEffect } from 'react';
 // import { Counter } from './features/counter/Counter';
 import './App.css';
 import { Route,Routes} from "react-router-dom"
-import { Posts } from './features/posts/postsLists';
 import { LoginPage } from './features/users/loginUser';
 import { PrivateRoute } from './features/users/privateRoute';
 import {BrowserRouter as Router} from "react-router-dom"
 import { RegisterPage } from './features/users/registerUser';
-import { Profile } from './features/users/profile';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsersData, getUserData, getUserNotification } from './features/users/userSlice';
 import { fetchPostData } from './features/posts/postsSlice';
-import { EditUserProfile } from './features/users/editProfile';
 import { Header } from './features/Header/header';
 import { Home } from './features/Home/home';
 
@@ -41,12 +38,8 @@ function App() {
           <PrivateRoute path="/*"  element={<Home/>}/>
           <Route path="/login"  element={<LoginPage/>}/>
           <Route path="/register"  element={<RegisterPage/>}/>
-          {/* <PrivateRoute path="/profile"  element={<Profile/>}/>
-          <PrivateRoute path="/:username"  element={<Profile/>}/>
-          <PrivateRoute path="/editProfile"  element={<EditUserProfile/>}/> */}
         </Routes>
-        {/* <LoginPage/> */}
-        {/* <Posts/> */}
+        
       </Router>
     </div>
   );

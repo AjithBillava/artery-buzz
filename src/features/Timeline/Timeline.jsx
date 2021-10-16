@@ -12,22 +12,13 @@ import { Profile } from "../users/profile"
     const {username} = useParams()
     const userProfile = allUsers.find(user=>user.username===username)
     const userPosts= userProfile?.posts?.map(userpost=>(
-    //    posts?.filter(post=>post._id===userpost._id)
        posts?.filter(post=>post._id===userpost._id)
    ))
    console.log(posts)
-//    console.log(userProfile,userPosts)
+   
     return(
         <div className="md:border-2 md:border-gray-200 md:m-5 rounded-md md:p-5 lg:mx-32 ">
             <Profile userProfile={userProfile} />
-            {/* {userPosts?.map(posts=>(
-                    posts.map(post=>(
-                    <div key={post._id} >
-                                    <Posts user={userProfile} type="Timeline" />
-
-                    </div>
-                ))
-                    ))} */}
             <Posts user={userProfile} userPosts={userPosts} type="Timeline" />
         </div>
     )
