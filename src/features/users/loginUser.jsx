@@ -1,6 +1,6 @@
 import { useEffect, useRef,useReducer } from "react"
 import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { getFormValues } from "../../utils/userUtils"
 import { login } from "./userSlice"
 
@@ -51,20 +51,20 @@ export const LoginPage = () =>{
     })
     
     return (
-        <div className="flex flex-col p-4 justify-center items-center " >
+        <div className="flex flex-col p-4 justify-center items-center md:border-2 md:border-gray-200 md:m-5 rounded-md md:p-5 lg:mx-40 md:px-10 lg:px-20 " >
             <h2 className="font-bold text-3xl">Login</h2>
             <form className="flex flex-col border border-primaryColor rounded-md p-2 mt-5 w-full" onSubmit={(e)=>handleOnsubmit(e)} >
 
                 <div>
                 <div className="flex flex-col pb-3">
-                    <label className="font-semibold" htmlFor="email">email</label>
-                    <input className="border-2 p-1" ref={inputFocused} 
+                    <label className="font-semibold" htmlFor="email">Email</label>
+                    <input className="border-2 p-1 outline-none" ref={inputFocused} 
                     onChange={(e)=>loginDispatch({type:"email",payload:e.target.value})} 
                     value={emailValue} type="text" name="email" required={true} ></input>
                 </div>
                 <div className="flex flex-col pb-3">
-                    <label className="font-semibold" htmlFor="password">password</label>
-                    <input className="border-2 p-1" 
+                    <label className="font-semibold" htmlFor="password">Password</label>
+                    <input className="border-2 p-1  outline-none" 
                     onChange={(e)=>loginDispatch({type:"password",payload:e.target.value})} 
                     value={passwordValue} type="password" name="password" required={true} ></input>
                 </div>
@@ -76,6 +76,10 @@ export const LoginPage = () =>{
                         e.preventDefault()
                         }} > test credentials</button>
                     <button className="p-1 px-2 min-w-min bg-primaryColor rounded-md " type="submit" >login</button>
+                </div>
+                <div className="flex justify-center mt-5 text-lg" >
+                    <p className="text-gray-600">Not registered yet?</p>
+                    <Link to="/register" className="text-blue-900 underline" >Register here </Link>
                 </div>
             </form>
 

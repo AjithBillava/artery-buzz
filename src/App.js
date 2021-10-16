@@ -31,7 +31,7 @@ function App() {
 },[token,dispatch])
 
   return (
-    <div className="App">
+    <div className="sm:text-lg md:text-xl">
       <Router>
       <Header/>
         <Routes>

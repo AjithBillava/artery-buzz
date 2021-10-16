@@ -1,6 +1,6 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import {useSelector,useDispatch} from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { register } from "./userSlice"
 import { getFormValues } from "../../utils/userUtils"
 
@@ -18,44 +18,55 @@ export const  RegisterPage = () =>{
             dispatch(register({email,password,firstname,lastname,username,}))
         }
     }
+     const inputFocused = useRef(null)
+    
     useEffect(()=>{
-        if (isAuthenticated) 
-                navigate("/")
-    },[isAuthenticated])
+        inputFocused.current.focus()
+    },[])
+    // useEffect(()=>{
+    //     if (isAuthenticated) 
+    //             navigate("/")
+    // },[isAuthenticated])
 return(
-        <div>
+        <div className="flex flex-col p-4 justify-center items-center md:border-2 md:border-gray-200 md:m-5 rounded-md md:p-5 lg:mx-40 md:px-10 lg:px-20 " >
             {status==="loading" && <h2>loading</h2> }
             {status==="error" && <h2>error</h2>}
+            <h2 className="font-bold text-3xl">Register</h2>
 
-            <form onSubmit={(e)=>handelOnSubmit(e)} >
+            <form className="flex flex-col border border-primaryColor rounded-md p-2 mt-5 w-full" onSubmit={(e)=>handelOnSubmit(e)} >
 
-                <div>
-                    <label htmlFor="firstname">First Name</label>
-                    <input type="text" name="firstname" />
+                <div className="flex flex-col pb-3">
+                    <label className="font-semibold " htmlFor="firstname">First Name</label>
+                    <input ref={inputFocused} className="border-2 p-1  outline-none"  type="text" name="firstname" />
                 </div>
-                <div>
-                    <label htmlFor="lastname">Last name</label>
-                    <input type="text" name="lastname" />
+                <div className="flex flex-col pb-3">
+                    <label className="font-semibold " htmlFor="lastname">Last name</label>
+                    <input  className="border-2 p-1 outline-none" type="text" name="lastname" />
                 </div> 
-                <div>
-                    <label htmlFor="username">Username</label>
-                    <input type="text" name="username" />
+                <div className="flex flex-col pb-3">
+                    <label className="font-semibold " htmlFor="username">Username</label>
+                    <input  className="border-2 p-1 outline-none" type="text" name="username" />
                 </div>
-                <div>
-                    <label htmlFor="email">Email</label>
-                    <input type="text" name="email" />
+                <div className="flex flex-col pb-3">
+                    <label className="font-semibold " htmlFor="email">Email</label>
+                    <input  className="border-2 p-1 outline-none" type="text" name="email" />
                 </div>
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" name="password" />
+                <div className="flex flex-col pb-3">
+                    <label className="font-semibold " htmlFor="password">Password</label>
+                    <input  className="border-2 p-1 outline-none" type="password" name="password" />
                 </div>
-                <div>
-                    <label htmlFor="confirmPassword">Confirm Password</label>
-                    <input type="Password" name="confirmPassword" />
+                <div className="flex flex-col pb-3">
+                    <label className="font-semibold " htmlFor="confirmPassword">Confirm Password</label>
+                    <input className="border-2 p-1 outline-none" type="Password" name="confirmPassword" />
                 </div>
 
-                <button type="submit" >Submit </button>
-                
+                <div className="flex flex-col items-center justify-center">
+                    <button className="p-1 px-2 min-w-min bg-primaryColor rounded-md " type="submit" >Submit </button>
+                </div>
+                <div className="flex justify-center mt-5 text-lg" >
+                    <p className="text-gray-600">Already registered ?</p>
+                    <Link to="/login" className="text-blue-900 underline" >Login here </Link>
+                </div>
 
             </form>
         </div>
