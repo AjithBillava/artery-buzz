@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { register } from "./userSlice"
 import { getFormValues } from "../../utils/userUtils"
 import { toast } from "react-toastify";
+import { LoaderComponent } from "../loader/loader"
 
 const validatePassword =({password,confirmPassword})=>{
     
@@ -41,7 +42,7 @@ export const  RegisterPage = () =>{
     // },[isAuthenticated])
 return(
         <div className="flex flex-col p-4 justify-center items-center md:border-2 md:border-gray-200 md:m-5 rounded-md md:p-5 lg:mx-40 md:px-10 lg:px-20 " >
-            {status==="loading" && <h2>loading</h2> }
+            {status==="loading" && <LoaderComponent/> }
             {status==="error" && <h2>error</h2>}
             <h2 className="font-bold text-3xl">Register</h2>
 

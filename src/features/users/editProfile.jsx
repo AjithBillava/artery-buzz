@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { getFormValues } from "../../utils/userUtils"
+import { LoaderComponent } from "../loader/loader"
 import { editUserProfile } from "./userSlice"
 
 export const EditUserProfile = () =>{
@@ -9,7 +10,7 @@ export const EditUserProfile = () =>{
     const {status} = useSelector(state=>state.user)
     return(
        <>
-        {status==="loading"&& <h2>loading</h2> }
+        {status==="loading"&& <LoaderComponent/> }
         <button onClick={()=>setShowEditProfileModal(true)} className="p-2 flex bg-gray-300 rounded-md ">
             Edit Profile
         </button>

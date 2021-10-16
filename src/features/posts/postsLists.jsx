@@ -1,6 +1,7 @@
 // import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+import { LoaderComponent } from "../loader/loader"
 import { NewPost, NewPostForm } from "./newPost"
 import { PostCard } from "./postCard"
 
@@ -24,7 +25,7 @@ export const Posts = ({user,type,userPosts}) =>{
 
     return (
         <div className="flex flex-col-reverse">
-            {status==="loading"&&<h2>loading</h2>}
+            {status==="loading"&&<LoaderComponent/>}
             {status==="error"&&<h2>error</h2>}
             
             {type!=="Timeline"?

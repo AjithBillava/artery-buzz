@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getFormValues } from "../../utils/userUtils"
 import { Avatar } from "../Header/avatar"
+import { LoaderComponent } from "../loader/loader"
 import { addNewPost } from "./postsSlice"
 
 export const NewPost = ({btnStyle,btnText}) =>{
@@ -11,7 +12,7 @@ export const NewPost = ({btnStyle,btnText}) =>{
 
     return(
         <>
-            {status==="loading"&& <h2>loading</h2> }
+            {status==="loading"&& <LoaderComponent/> }
 
             <button  onClick={()=>setShowNewPostForm(true)} className={`${btnStyle}`}>
                 {btnText}

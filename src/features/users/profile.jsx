@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { checkIfFollowing, handleOnFollow, handleOnUnfollow } from "../../utils/userUtils"
+import { LoaderComponent } from "../loader/loader"
 
 
 import { EditUserProfile } from "./editProfile"
@@ -34,7 +35,7 @@ export const Profile = ({userProfile}) =>{
     return(
         <>
             <div className="relative p-2 md:px-40 ">
-                { status==="loading" && <h2>loading</h2> }
+                { status==="loading" && <LoaderComponent/> }
                 { status==="error" && <h2>error</h2> }
 
                 {

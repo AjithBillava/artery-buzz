@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useSelector,useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { Avatar } from "../Header/avatar"
+import { LoaderComponent } from "../loader/loader"
 import { getUserNotification, readUserNotification } from "../users/userSlice"
 
 export const NotificationPage = () =>{
@@ -16,7 +17,7 @@ export const NotificationPage = () =>{
 
     return(
         <>
-            {status ==="loading" && <h2>loading</h2> }
+            {status ==="loading" && <LoaderComponent/> }
 
             {
                 notifications.length>0?
