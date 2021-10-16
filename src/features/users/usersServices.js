@@ -23,6 +23,7 @@ export const registerUserService = async({email,password,firstname,lastname,user
    
         return data
     } catch (error) {
+        console.error(error)
         toast.error(error.response.data.message, {
             style: { backgroundColor: "##15b996", letterSpacing: "0.8px" },
             autoClose: 2000,

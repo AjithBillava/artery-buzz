@@ -1,10 +1,9 @@
-import { useEffect, useRef ,useReducer} from "react"
-import {useSelector,useDispatch} from "react-redux"
+import { useEffect, useRef } from "react"
+import { useDispatch} from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { register } from "./userSlice"
 import { getFormValues } from "../../utils/userUtils"
 import { toast } from "react-toastify";
-import { LoaderComponent } from "../loader/loader"
 
 const validatePassword =({password,confirmPassword})=>{
     
@@ -20,15 +19,14 @@ const validatePassword =({password,confirmPassword})=>{
 }
 export const  RegisterPage = () =>{
     
-    const {status,isAuthenticated} = useSelector(state =>state.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const handelOnSubmit =(e) =>{
         e.preventDefault()
         const {email,password,confirmPassword,firstname,lastname,username,} = getFormValues(e,"register")
-        // console
+        console.log(email,password,confirmPassword,firstname,lastname,username)
         if (validatePassword({password,confirmPassword})){
-            dispatch(register({email,password,firstname,lastname,username,})).then(()=>navigate("/login"))
+            dispatch(register({email,password,firstname,lastname,username,})).then((data)=>data?.user && navigate("/login"))
         }
     }
      const inputFocused = useRef(null)
@@ -36,21 +34,15 @@ export const  RegisterPage = () =>{
     useEffect(()=>{
         inputFocused.current.focus()
     },[])
-    // useEffect(()=>{
-    //     if (isAuthenticated) 
-    //             navigate("/")
-    // },[isAuthenticated])
 return(
         <div className="flex flex-col p-4 justify-center items-center md:border-2 md:border-gray-200 md:m-5 rounded-md md:p-5 lg:mx-40 md:px-10 lg:px-20 " >
-            {status==="loading" && <LoaderComponent/> }
-            {status==="error" && <h2>error</h2>}
             <h2 className="font-bold text-3xl">Register</h2>
 
             <form className="flex flex-col border border-primaryColor rounded-md p-2 mt-5 w-full" onSubmit={(e)=>handelOnSubmit(e)} >
 
                 <div className="flex flex-col pb-3">
                     <label className="font-semibold " htmlFor="firstname">First Name</label>
-                    <input ref={inputFocused} className="border-2 p-1  outline-none"  type="text" name="firstname" />
+                    <input  ref={inputFocused} className="border-2 p-1  outline-none"  type="text" name="firstname" />
                 </div>
                 <div className="flex flex-col pb-3">
                     <label className="font-semibold " htmlFor="lastname">Last name</label>
@@ -66,13 +58,12 @@ return(
                 </div>
                 <div className="flex flex-col pb-3">
                     <label className="font-semibold " htmlFor="password">Password</label>
-                    <input className="border-2 p-1 outline-none" type="password" name="password" />
+                    <input required className="border-2 p-1 outline-none" type="password" name="password" />
                 </div>
                 <div className="flex flex-col pb-3">
-                    <label className="font-semibold " htmlFor="confirmPassword">Confirm Password</label>
-                    <input className="border-2 p-1 outline-none" type="Password" name="confirmPassword" />
+                    <label className="font-semibold " htmlFor="confirmpassword">Confirm Password</label>
+                    <input required className="border-2 p-1 outline-none" type="password" name="confirmPassword" />
                 </div>
-
                 <div className="flex flex-col items-center justify-center">
                     <button  className="p-1 px-2 min-w-min bg-primaryColor rounded-md " type="submit" >Submit </button>
                 </div>

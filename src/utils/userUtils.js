@@ -15,10 +15,10 @@ export const getFormValues = (event,type) =>{
                 username:{value:username},
                 email:{value:email},
                 password:{value:password},
-                // confirmPassword:{value:confirmPassword}
+                confirmPassword:{value:confirmPassword}
             } = event.target
 
-            return {firstname,lastname,email,username,password,}
+            return {firstname,lastname,email,username,password,confirmPassword}
         }
         case "editUserProfile":{
             const {
@@ -27,7 +27,6 @@ export const getFormValues = (event,type) =>{
                 profilePic:{value:profilePic},
                 bio:{value:bio},
                 website:{value:website},
-                // confirmPassword:{value:confirmPassword}
             } = event.target
 
             return {firstname,lastname,profilePic,bio,website}

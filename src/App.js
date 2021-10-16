@@ -26,7 +26,7 @@ function App() {
         dispatch(fetchPostData())
         // (currentUser._id)
         dispatch(getUserData())
-        dispatch(getUserNotification(currentUser._id))
+        // dispatch(getUserNotification(currentUser._id))
         dispatch(getAllUsersData(currentUser._id))
       }
    

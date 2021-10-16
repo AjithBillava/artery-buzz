@@ -1,4 +1,4 @@
-import { useEffect, useRef,useReducer } from "react"
+import { useEffect, useRef } from "react"
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { getFormValues } from "../../utils/userUtils"
@@ -11,15 +11,15 @@ export const LoginPage = () =>{
     const token = localStorage.getItem("token")
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    useEffect(()=>{
-        if (token) 
-                navigate("/")
-    },[token])
+    // useEffect(()=>{
+    //     if (token) 
+    //             navigate("/")
+    // },[token])
     
     const handleOnsubmit = (e) =>{
         e.preventDefault();
         const {email,password} =getFormValues(e,"login")
-        dispatch(login({email,password}))
+        dispatch(login({email,password})).then(()=>navigate("/"))
         
     }
     const inputFocused = useRef(null)
