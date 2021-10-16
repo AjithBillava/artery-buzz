@@ -13,7 +13,7 @@ export const NotificationPage = () =>{
     const dispatch = useDispatch()
     useEffect(()=>{
         dispatch(getUserNotification({userId}))
-    },[])
+    },[getUserNotification])
 
     return(
         <div className="md:border-2 md:border-gray-200 md:m-5 rounded-md md:p-5 lg:mx-32 flex-col-reverse flex ">

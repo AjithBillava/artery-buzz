@@ -7,14 +7,10 @@ import { login } from "./userSlice"
 
 export const LoginPage = () =>{
 
-    // const {isAuthenticated} = useSelector(state => state.user)
-    const token = localStorage.getItem("token")
+    
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    // useEffect(()=>{
-    //     if (token) 
-    //             navigate("/")
-    // },[token])
+    
     
     const handleOnsubmit = (e) =>{
         e.preventDefault();

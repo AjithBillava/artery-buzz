@@ -1,8 +1,10 @@
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import { checkIfFollowing, handleOnFollow, handleOnUnfollow } from "../../utils/userUtils"
 import { Avatar } from "../Header/avatar"
-import { followUser, unFollowUser } from "./userSlice"
+import { LoaderComponent } from "../loader/loader"
+import { followUser, getAllUsersData, getUserData, unFollowUser } from "./userSlice"
 
 
 export const FollowersList = ()=>{
@@ -38,31 +40,39 @@ export const FollowersList = ()=>{
 }
 export const UserCard =({following,user,type})=>{
 
-    const currentUser = useSelector(state => state.user)
-    const loggedUserId = currentUser?._id
+    const {currentUser,status} = useSelector(state => state.user)
+    const userId = currentUser?._id
+    useEffect(()=>{
+        if(status==="idle"){
+        dispatch(getAllUsersData(userId))
+        dispatch(getUserData())
 
+        }
+    },[status])
     const dispatch = useDispatch()
     return (
-        <div className="flex flex-row justify-between items-center border border-gray-300 mb-3 ">
-            
-            <div className="flex flex-row p-2 items-center">
-                <Avatar firstname={user?.firstname} lastname={user?.lastname} username={user?.username} profilePic={user?.profilePic} />
-                <p className="ml-3 font-semibold " >{`${user?.firstname} ${user?.lastname}`}</p>
+        <>
+            {status==="loading" &&<LoaderComponent />}
+            <div className="flex flex-row justify-between items-center border border-gray-300 mb-3 ">
                 
-            </div>
-            <div className="mr-3" >
-                {
-                    // type==="follo"
+                <div className="flex flex-row p-2 items-center">
+                    <Avatar firstname={user?.firstname} lastname={user?.lastname} username={user?.username} profilePic={user?.profilePic} />
+                    <p className="ml-3 font-semibold " >{`${user?.firstname} ${user?.lastname}`}</p>
+                    
+                </div>
+                <div className="mr-3" >
+                    {
                         checkIfFollowing(following,user?._id)?
-                        <button onClick={(e)=>handleOnUnfollow(e,loggedUserId,user?._id,dispatch,unFollowUser)} className="p-2 flex bg-primaryColor rounded-md ">
+                        <button onClick={(e)=>handleOnUnfollow(e,userId,user?._id,dispatch,unFollowUser)} className="p-2 flex bg-primaryColor rounded-md ">
                             unfollow
                         </button>
                         :
-                        <button onClick={(e)=>handleOnFollow(e,loggedUserId,user?._id,dispatch,followUser)} className="p-2 flex bg-primaryColor rounded-md ">
-                            follow
+                        <button onClick={(e)=>handleOnFollow(e,userId,user?._id,dispatch,followUser)} className="p-2 flex bg-primaryColor rounded-md ">
+                        follow
                         </button>
-                }
+                    }
+                </div>
             </div>
-        </div>
+        </>
     )
 }

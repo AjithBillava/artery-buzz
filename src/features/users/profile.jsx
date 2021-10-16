@@ -59,11 +59,11 @@ export const Profile = ({userProfile}) =>{
                             <>
                             {
                                 checkIfFollowing(myFollowings,userProfile?._id)?
-                                <button onClick={(e)=>handleOnUnfollow(e,userId,userProfile?._id,dispatch,followUser)} className="p-2 flex bg-primaryColor rounded-md ">
+                                <button onClick={(e)=>handleOnUnfollow(e,userId,userProfile?._id,dispatch,unFollowUser)} className="p-2 flex bg-primaryColor rounded-md ">
                                     unfollow
                                 </button>
                                 :
-                                <button onClick={(e)=>handleOnFollow(e,userId,userProfile?._id,dispatch,unFollowUser)} className="p-2 flex bg-primaryColor rounded-md ">
+                                <button onClick={(e)=>handleOnFollow(e,userId,userProfile?._id,dispatch,followUser)} className="p-2 flex bg-primaryColor rounded-md ">
                                     follow
                                 </button>
                             }
