@@ -14,7 +14,6 @@ import { Profile } from "../users/profile"
     const userPosts= userProfile?.posts?.map(userpost=>(
        posts?.filter(post=>post._id===userpost._id)
    ))
-   console.log(posts)
    
     return(
         <div className="md:border-2 md:border-gray-200 md:m-5 rounded-md md:p-5 lg:mx-32 ">

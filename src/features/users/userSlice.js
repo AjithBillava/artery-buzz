@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {  editUserDataService,  followUserService,  getAllUsersService,  getCurrentUserService,  getUserNotificationService,  loginUserService,  readUserNotificationService,  registerUserService, unFollowUserService } from "./usersServices";
+import { toast } from "react-toastify";
 
 const initialState = {
     currentUser:{},
@@ -48,9 +49,7 @@ const userSlice = createSlice({
             state.status="loading"
         },
         [getUserData.fulfilled]:(state,action) =>{
-            // console.log(action.payload.user)
             state.currentUser = action.payload.user
-            // localStorage.setItem("token",action.payload.token)
             state.status="fulfilled"
         },
         [getUserData.rejected]:(state) =>{
@@ -79,12 +78,33 @@ const userSlice = createSlice({
             localStorage.setItem("token",action.payload.token)
             state.currentUser = action.payload.user
             state.isAuthenticated=true
+            toast.success("Logged in sucessfully", {
+                style: { backgroundColor: "##15b996" },
+                autoClose: 2000,
+                hideProgressBar: true,
+                    });
         },
-        [register.fulfilled]:(state,action) =>{
-            localStorage.setItem("token",action.payload.token)
-            state.currentUser = action.payload.user
-            state.isAuthenticated=true
+        [login.rejected]:(state,action)=>{
+            state.status="error"
+            toast.error(" incorrect email or Password", {
+				style: { backgroundColor: "##15b996", letterSpacing: "0.8px" },
+				autoClose: 2000,
+				hideProgressBar: true,
+			});
         },
+        // [register.fulfilled]:(state,action) =>{
+        //     localStorage.setItem("token",action.payload.token)
+        //     state.currentUser = action.payload.user
+        //     state.isAuthenticated=true
+        // },
+        // [register.rejected]:(state,action) =>{
+        //     state.status="error"
+        //     toast.error("Incorrect email or password", {
+		// 		style: { backgroundColor: "var(--error-color)", letterSpacing: "0.8px" },
+		// 		autoClose: 2000,
+		// 		hideProgressBar: true,
+		// 	});
+        // },
         [editUserProfile.fulfilled]:(state,action) =>{
             state.currentUser = action.payload.user
             state.status="idle"

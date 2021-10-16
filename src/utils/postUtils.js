@@ -1,7 +1,8 @@
+import { toast } from "react-toastify";
 import { likePost, unLikePost } from "../features/posts/postsSlice"
 
 export const checkLikeStatus = (likedUsers, userId) => {
-    console.log(likedUsers)
+    
     return likedUsers?.find((user) => user._id === userId) ? true : false;
   };
 export   const handleLikeButton = (e,userId,postId,likedUsers,dispatch,setLikeButtonColor) =>{
@@ -17,3 +18,12 @@ export   const handleLikeButton = (e,userId,postId,likedUsers,dispatch,setLikeBu
     }
     
 }
+export const getPostShareLink = (e,postId) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(`${window.location.hostname}/feed/${postId}`);
+    toast.success("Link copied to clipboard", "success", {
+        style: { backgroundColor: "##15b996" },
+        autoClose: 2000,
+        hideProgressBar: true,
+            });
+  };

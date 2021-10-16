@@ -7,7 +7,7 @@ import { getUserNotification, readUserNotification } from "../users/userSlice"
 export const NotificationPage = () =>{
 
     const {notifications,status,currentUser} = useSelector(state=>state.user)
-    console.log(status)
+    
     const userId = currentUser._id || {}
     const dispatch = useDispatch()
     useEffect(()=>{

@@ -12,6 +12,8 @@ import { getAllUsersData, getUserData, getUserNotification } from './features/us
 import { fetchPostData } from './features/posts/postsSlice';
 import { Header } from './features/Header/header';
 import { Home } from './features/Home/home';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 
@@ -22,7 +24,7 @@ function App() {
 
       if(token){
         dispatch(fetchPostData())
-        // console.log(currentUser._id)
+        // (currentUser._id)
         dispatch(getUserData())
         dispatch(getUserNotification(currentUser._id))
         dispatch(getAllUsersData(currentUser._id))
@@ -30,10 +32,13 @@ function App() {
    
 },[token,dispatch])
 
+toast.configure()
+
   return (
     <div className="sm:text-lg md:text-xl">
       <Router>
-      <Header/>
+        <Header/>
+        <ToastContainer/>
         <Routes>
           <PrivateRoute path="/*"  element={<Home/>}/>
           <Route path="/login"  element={<LoginPage/>}/>

@@ -21,7 +21,6 @@ export const Posts = ({user,type,userPosts}) =>{
     const {status,posts} = useSelector(state => state.posts)
     const {status:userStatus,currentUser} = useSelector(state=>state.user)
 
-    console.log(userPosts,userStatus)
 
     return (
         <div className="flex flex-col-reverse">

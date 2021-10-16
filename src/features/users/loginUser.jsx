@@ -4,23 +4,6 @@ import { Link, useNavigate } from "react-router-dom"
 import { getFormValues } from "../../utils/userUtils"
 import { login } from "./userSlice"
 
-export const loginReducer  = (state,{type,payload}) =>{
-    switch (type){
-        case "email":
-            return {
-            ...state,
-            emailValue: payload
-            };
-        case "password":
-            return {
-            ...state,
-            passwordValue: payload
-            };
-        default:
-            return state;
-        }
-}
-
 
 export const LoginPage = () =>{
 
@@ -45,10 +28,7 @@ export const LoginPage = () =>{
         inputFocused.current.focus()
     },[])
     
-    const [{emailValue,passwordValue},loginDispatch] = useReducer(loginReducer,{
-        emailValue:"",
-        passwordValue:""
-    })
+   
     
     return (
         <div className="flex flex-col p-4 justify-center items-center md:border-2 md:border-gray-200 md:m-5 rounded-md md:p-5 lg:mx-40 md:px-10 lg:px-20 " >
@@ -59,21 +39,18 @@ export const LoginPage = () =>{
                 <div className="flex flex-col pb-3">
                     <label className="font-semibold" htmlFor="email">Email</label>
                     <input className="border-2 p-1 outline-none" ref={inputFocused} 
-                    onChange={(e)=>loginDispatch({type:"email",payload:e.target.value})} 
-                    value={emailValue} type="text" name="email" required={true} ></input>
+                    type="text" name="email" required={true} ></input>
                 </div>
                 <div className="flex flex-col pb-3">
                     <label className="font-semibold" htmlFor="password">Password</label>
                     <input className="border-2 p-1  outline-none" 
-                    onChange={(e)=>loginDispatch({type:"password",payload:e.target.value})} 
-                    value={passwordValue} type="password" name="password" required={true} ></input>
+                    type="password" name="password" required={true} ></input>
                 </div>
                 </div>
                 <div className="flex flex-col items-center justify-center">
                     <button className=" p-1 px-2 min-w-min border border-primaryColor hover:bg-primaryColor rounded-md mb-4" onClick={(e)=>{
-                        loginDispatch({type:"email",payload:"test@gmail.com"})
-                        loginDispatch({type:"password",payload:"123456"})
-                        e.preventDefault()
+                        e.target.form[0].value = "test@gmail.com";
+                        e.target.form[1].value = "123456"
                         }} > test credentials</button>
                     <button className="p-1 px-2 min-w-min bg-primaryColor rounded-md " type="submit" >login</button>
                 </div>

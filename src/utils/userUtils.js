@@ -53,6 +53,5 @@ export const handleOnFollow =(e,userId,followedUserId,dispatch,followUser)=>{
 }
 export const handleOnUnfollow =(e,userId,unfollowedUserId,dispatch,unFollowUser)=>{
     e.preventDefault()
-    console.log(userId,unfollowedUserId)
     dispatch(unFollowUser({userId,unfollowedUserId}))
 }

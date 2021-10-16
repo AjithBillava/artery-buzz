@@ -12,14 +12,11 @@ const{status:userStatus,currentUser} = useSelector(state=>state.user)
 
 let currentPost = posts?.filter(post=>post._id===postId)
 currentPost = currentPost[0]
-console.log(posts,currentPost)
 
 const userId = currentUser._id
-console.log(currentPost);
 
 const [likeButtonColor, setLikeButtonColor] = useState("none");
 useEffect(() => {
-    console.log(currentPost?.likedUsers, userId);
     if (checkLikeStatus(currentPost?.likedUsers, userId)) {
         setLikeButtonColor("red");
     }

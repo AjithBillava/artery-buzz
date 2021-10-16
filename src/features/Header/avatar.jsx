@@ -1,9 +1,7 @@
-import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 
 export const Avatar = ({firstname,lastname,profilePic,username}) =>{
-    const {currentUser} = useSelector(state => state.user)
-    console.log(currentUser)
+    
     return(
         <div>
             

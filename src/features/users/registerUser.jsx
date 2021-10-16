@@ -1,21 +1,33 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef ,useReducer} from "react"
 import {useSelector,useDispatch} from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { register } from "./userSlice"
 import { getFormValues } from "../../utils/userUtils"
+import { toast } from "react-toastify";
 
+const validatePassword =({password,confirmPassword})=>{
+    
+    if (confirmPassword && confirmPassword !== password) {
+        toast.error(" Password does not match", {
+            style: { backgroundColor: "##15b996", letterSpacing: "0.8px" },
+            autoClose: 2000,
+            hideProgressBar: true,
+        });
+        return false
+    }
+    return true
+}
 export const  RegisterPage = () =>{
     
     const {status,isAuthenticated} = useSelector(state =>state.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
     const handelOnSubmit =(e) =>{
         e.preventDefault()
         const {email,password,confirmPassword,firstname,lastname,username,} = getFormValues(e,"register")
         // console
-        if (confirmPassword && confirmPassword === password){
-            dispatch(register({email,password,firstname,lastname,username,}))
+        if (validatePassword({password,confirmPassword})){
+            dispatch(register({email,password,firstname,lastname,username,})).then(()=>navigate("/login"))
         }
     }
      const inputFocused = useRef(null)
@@ -53,7 +65,7 @@ return(
                 </div>
                 <div className="flex flex-col pb-3">
                     <label className="font-semibold " htmlFor="password">Password</label>
-                    <input  className="border-2 p-1 outline-none" type="password" name="password" />
+                    <input className="border-2 p-1 outline-none" type="password" name="password" />
                 </div>
                 <div className="flex flex-col pb-3">
                     <label className="font-semibold " htmlFor="confirmPassword">Confirm Password</label>
@@ -61,7 +73,7 @@ return(
                 </div>
 
                 <div className="flex flex-col items-center justify-center">
-                    <button className="p-1 px-2 min-w-min bg-primaryColor rounded-md " type="submit" >Submit </button>
+                    <button  className="p-1 px-2 min-w-min bg-primaryColor rounded-md " type="submit" >Submit </button>
                 </div>
                 <div className="flex justify-center mt-5 text-lg" >
                     <p className="text-gray-600">Already registered ?</p>

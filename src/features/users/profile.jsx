@@ -21,7 +21,6 @@ export const Profile = ({userProfile}) =>{
 
    
     const dispatch = useDispatch()
-    console.log(status)
     useEffect(()=>{
         if(status==="idle"){
         dispatch(getAllUsersData(userId))
