@@ -6,7 +6,7 @@ export const LoaderComponent =()=>{
             {/* <h1> loading </h1> */}
             <Loader
                 type="Oval"
-                color="yellow"
+                color="#fc9e23"
                 height={50}
                 width={50}
                 // timeout={3000} //3 secs
