@@ -29,11 +29,11 @@ useEffect(() => {
 const dispatch = useDispatch()
 
 return (
-    <div >
+    <div className=" md:m-5 rounded-md md:p-5 lg:mx-32 " >
         {userStatus==="loading" && <LoaderComponent/> }
 
         {userStatus==="fulfilled" && 
-            <div className="flex p-2 border-2 border-gray-200 mt-8">
+            <div className="flex p-2 md:p-5 border-2 border-gray-200 mt-8">
                 <Avatar firstname={currentPost?.author?.firstname} lastname={currentPost?.author?.lastname} profilePic={currentPost?.author ? currentPost?.author?.profilePic : currentUser?.profilePic} username={currentPost?.author?.username} />
 
                 <div className="w-screen ml-2">
