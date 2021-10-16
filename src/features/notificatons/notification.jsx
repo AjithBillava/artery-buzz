@@ -16,7 +16,7 @@ export const NotificationPage = () =>{
     },[])
 
     return(
-        <>
+        <div className="md:border-2 md:border-gray-200 md:m-5 rounded-md md:p-5 lg:mx-32 flex-col-reverse flex ">
             {status ==="loading" && <LoaderComponent/> }
 
             {
@@ -33,7 +33,7 @@ export const NotificationPage = () =>{
                 </div>
             }
 
-        </>
+        </div>
     )
 }
 
