@@ -6,6 +6,7 @@ import { PostCardDetails } from "../posts/postCardDetails";
 import { NotificationPage } from "../notificatons/notification";
 import { FollowingsList } from "../users/following";
 import { FollowersList } from "../users/followersPage";
+import { ConnectionPage } from "../connections/connection";
 
 export const Home = () =>{
 
@@ -18,6 +19,7 @@ export const Home = () =>{
                 <PrivateRoute path=":username/followers"  element={<FollowersList/>}/>
                 <PrivateRoute path=":username/following"  element={<FollowingsList/>}/>
                 <PrivateRoute path="notifications"  element={<NotificationPage/>}/>
+                <PrivateRoute path="connect"  element={<ConnectionPage/>}/>
                 <PrivateRoute path="feed/:postId"  element={<PostCardDetails/>}/>
             </Routes>
         </div>

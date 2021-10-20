@@ -3,37 +3,48 @@ import { useSelector,useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { Avatar } from "../Header/avatar"
 import { LoaderComponent } from "../loader/loader"
-import { getUserNotification, readUserNotification } from "../users/userSlice"
+import { getUserData, getUserNotification, readUserNotification } from "../users/userSlice"
 
 export const NotificationPage = () =>{
 
-    const {notifications,status,currentUser} = useSelector(state=>state.user)
+    const {notifications,notificationStatus,status,currentUser} = useSelector(state=>state.user)
     
     const userId = currentUser._id || {}
     const dispatch = useDispatch()
     useEffect(()=>{
-        dispatch(getUserNotification({userId}))
-    },[getUserNotification])
+        // if(status==="idle"){
+        //     dispatch(getUserData())
+        // }
+        if(notificationStatus!=="fulfilled"){
+            dispatch(getUserData()).then(()=>dispatch(getUserNotification({userId})))
 
+        
+        }
+    },[notificationStatus])
+    console.log(status,notificationStatus)
     return(
-        <div className="md:border-2 md:border-gray-200 md:m-5 rounded-md md:p-5 lg:mx-32 flex-col-reverse flex ">
-            {status ==="loading" && <LoaderComponent/> }
+        <>
+            <h2 className="flex p-3 text-2xl font-bold md:text-3xl items-center justify-center" >Notifications</h2>
 
-            {
-                notifications.length>0?
-                notifications?.map(notification =>(
-                        <div key={notification._id} >
-                            <NotificationCard notification={notification} />
-                        </div>
+            <div className="md:border-2 md:border-gray-200 md:m-5 rounded-md md:p-5 lg:mx-32 flex-col-reverse flex ">
+                {notificationStatus ==="loading" && <LoaderComponent/> }
+
+                {
+                    notifications.length>0?
+                    notifications?.map(notification =>(
+                            <div key={notification._id} >
+                                <NotificationCard notification={notification} />
+                            </div>
+                        )
                     )
-                )
-                :
-                status==="fulfilled" && <div className="flex flex-col h-5/6 text-2xl font-semibold items-center justify-center " >
-                    you have no notification
-                </div>
-            }
+                    :
+                    status==="fulfilled" && <div className="flex flex-col h-5/6 text-2xl font-semibold items-center justify-center " >
+                        you have no notification
+                    </div>
+                }
 
-        </div>
+            </div>
+        </>
     )
 }
 

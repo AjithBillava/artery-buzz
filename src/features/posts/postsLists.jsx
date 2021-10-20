@@ -25,7 +25,7 @@ export const Posts = ({user,type,userPosts}) =>{
 
     return (
         <div className="flex flex-col-reverse">
-            {status==="loading"&&<LoaderComponent/>}
+            {(status==="loading"||userStatus==="loading")&&<LoaderComponent/>}
             {status==="error"&&<h2>error</h2>}
             
             {type!=="Timeline"?

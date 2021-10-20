@@ -1,21 +1,26 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { getFormValues } from "../../utils/userUtils"
+import { LoaderComponent } from "../loader/loader"
 import { login } from "./userSlice"
 
 
 export const LoginPage = () =>{
 
-    
+    const [showLoader,setShowLoader] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     
     
     const handleOnsubmit = (e) =>{
         e.preventDefault();
+        setShowLoader(!showLoader)
         const {email,password} =getFormValues(e,"login")
-        dispatch(login({email,password})).then(()=>navigate("/"))
+        dispatch(login({email,password})).then(()=>{
+            setShowLoader(!showLoader) 
+            navigate("/")
+        })
         
     }
     const inputFocused = useRef(null)
@@ -50,6 +55,9 @@ export const LoginPage = () =>{
                         }} > test credentials</button>
                     <button className="p-1 px-2 min-w-min bg-primaryColor rounded-md " type="submit" >login</button>
                 </div>
+                {
+                    showLoader&&<LoaderComponent/>
+                }
                 <div className="flex justify-center mt-5 text-lg" >
                     <p className="text-gray-600">Not registered yet?</p>
                     <Link to="/register" className="text-blue-900 underline" >Register here </Link>

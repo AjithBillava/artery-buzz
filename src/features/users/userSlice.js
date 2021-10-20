@@ -7,6 +7,7 @@ const initialState = {
     notifications:[],
     allUsers:[],
     status:"idle",
+    notificationStatus:"idle",
     isAuthenticated:false
 }
 
@@ -60,18 +61,18 @@ const userSlice = createSlice({
             state.allUsers=action.payload.users
         }, 
         [getUserNotification.pending]:(state)=>{
-            state.status="loading"
+            state.notificationStatus="loading"
         },
         [getUserNotification.fulfilled]:(state,action)=>{
             state.notifications = action.payload.notifications
-            state.status="fulfilled"
+            state.notificationStatus="fulfilled"
         },
         [readUserNotification.pending]:(state)=>{
-            state.status="loading"
+            state.notificationStatus="loading"
         },
         [readUserNotification.fulfilled]:(state,action)=>{
             state.notifications = action.payload.notifications
-            state.status="fulfilled"
+            state.notificationStatus="fulfilled"
         },
         
         [login.fulfilled]:(state,action) =>{

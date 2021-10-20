@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { checkIfFollowing, handleOnFollow, handleOnUnfollow } from "../../utils/userUtils"
 import { LoaderComponent } from "../loader/loader"
+import { fetchPostData } from "../posts/postsSlice"
 
 
 import { EditUserProfile } from "./editProfile"
@@ -26,7 +27,7 @@ export const Profile = ({userProfile}) =>{
         if(status==="idle"){
         dispatch(getAllUsersData(userId))
         dispatch(getUserData())
-
+        dispatch(fetchPostData())
         }
     },[status])
 
