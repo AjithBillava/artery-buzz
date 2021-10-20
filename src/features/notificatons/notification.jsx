@@ -75,7 +75,7 @@ const NotificationCard = ({notification}) =>{
         return(
             <Link className={notificationStyle} onClick={()=>handleNotificationRead({userId,notificationId})} to={`/feed/${postId}`} >
                 <Avatar firstname={originUser?.firstname} lastname={originUser?.lastname} profilePic={originUser?originUser?.profilePic:currentUser?.profilePic} username={originUser?.username} />
-                <div>
+                <div className="ml-3">
                     {`${originUser?.firstname} liked your Post`}
                 </div>
             </Link>
@@ -85,7 +85,7 @@ const NotificationCard = ({notification}) =>{
         return(
             <Link className={notificationStyle} onClick={()=>handleNotificationRead({userId,notificationId})} to={`/feed/${postId}`} >
                 <Avatar firstname={originUser?.firstname} lastname={originUser?.lastname} profilePic={originUser?originUser?.profilePic:currentUser?.profilePic} username={originUser?.username} />
-                <div>{`${originUser?.firstname} added new Post`}</div>
+                <div className="ml-3">{`${originUser?.firstname} added new Post`}</div>
             </Link>
         )
     }
