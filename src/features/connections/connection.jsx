@@ -16,7 +16,24 @@ export const ConnectionPage = () =>{
         return allUsers?.filter(user=>user?._id!==followedUser?._id && user?._id!==currentUser?._id ) 
     })
     
-    console.log(notFollowedUsers)
+
+    // const reducedNotFollowedUser = userFollowings?.reduce((notFoloowedUser,currValue)=>(
+    //      notFoloowedUser = allUsers?.filter(user=>user?._id!==currValue?._id && user?._id!==currentUser?._id)
+    //         // allUsers?.filter(user=>user?._id!==currValue && user?._id!==currentUser?._id)
+    // ),{})
+    
+    // const reducedNotFollowedUser = allUsers?.reduce((notFoolowedUser,currValue)=>{
+    //     return userFollowings?.forEach(user=>{
+    //         // console.log(user?._id,currValue?._id)
+    //         if(user?._id!==currValue?._id){
+    //             return notFoolowedUser={...notFoolowedUser,currValue}
+    //         }
+    //         console.log(notFoolowedUser)
+    //         return notFoolowedUser
+    //     })
+    // },{})
+
+    // console.log(notFollowedUsers,reducedNotFollowedUser)
     let [notFollowedUser]=notFollowedUsers || []
     return(
         <>
