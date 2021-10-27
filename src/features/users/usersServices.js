@@ -51,6 +51,10 @@ export const readUserNotificationService = async({userId,notificationId}) =>{
     const {data} = await axios.post(`${backendUrl}/user/${userId}/notifications`,{notificationId},TokenConfig())
     return data
 }
+export const clearNotification = async({userId}) =>{
+    const {data} = await axios.post(`${backendUrl}/user/${userId}/notifications/clear`,{},TokenConfig())
+    return data
+}
 export const unFollowUserService = async({userId,unfollowedUserId}) =>{
     await axios.post(`${backendUrl}/user/${userId}/unfollow`,{userId:unfollowedUserId},TokenConfig())
     const {data} = await axios.get(`${backendUrl}/user`,TokenConfig())

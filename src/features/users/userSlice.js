@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {  editUserDataService,  followUserService,  getAllUsersService,  getCurrentUserService,  getUserNotificationService,  loginUserService,  readUserNotificationService,  registerUserService, unFollowUserService } from "./usersServices";
+import {  clearNotification, editUserDataService,  followUserService,  getAllUsersService,  getCurrentUserService,  getUserNotificationService,  loginUserService,  readUserNotificationService,  registerUserService, unFollowUserService } from "./usersServices";
 import { toast } from "react-toastify";
 
 const initialState = {
@@ -30,6 +30,7 @@ const getUserData = createAsyncThunk("user/loadUser",getCurrentUserService)
 const getAllUsersData = createAsyncThunk("user/loadAllUsers",getAllUsersService)
 const getUserNotification = createAsyncThunk("user/notifications",getUserNotificationService)
 const readUserNotification = createAsyncThunk("user/readNotification",readUserNotificationService)
+const clearUserNotification = createAsyncThunk("user/readNotification",clearNotification)
 const login= createAsyncThunk("user/login",loginUserService)
 const register = createAsyncThunk("user/register",registerUserService)
 const editUserProfile = createAsyncThunk("user/editUserProfile",editUserDataService)
@@ -73,6 +74,13 @@ const userSlice = createSlice({
         [readUserNotification.fulfilled]:(state,action)=>{
             state.notifications = action.payload.notifications
             state.notificationStatus="fulfilled"
+        },
+        // [clearUserNotification.pending]:(state)=>{
+        //     state.notificationStatus="loading"
+        // },
+        [clearUserNotification.fulfilled]:(state,action)=>{
+            state.notifications = action.payload.notifications
+            // state.notificationStatus="fulfilled"
         },
         
         [login.fulfilled]:(state,action) =>{
@@ -124,5 +132,5 @@ const userSlice = createSlice({
 
 export const {changeStatusToSucess} = userSlice.actions
 export {login,register,getUserData,getAllUsersData,editUserProfile,followUser,unFollowUser,getUserNotification
-    ,readUserNotification}
+    ,readUserNotification,clearUserNotification}
 export default userSlice.reducer

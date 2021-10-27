@@ -3,7 +3,7 @@ import { useSelector,useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { Avatar } from "../Header/avatar"
 import { LoaderComponent } from "../loader/loader"
-import { getUserData, getUserNotification, readUserNotification } from "../users/userSlice"
+import { clearUserNotification, getUserData, getUserNotification, readUserNotification } from "../users/userSlice"
 
 export const NotificationPage = () =>{
 
@@ -15,22 +15,32 @@ export const NotificationPage = () =>{
         // if(status==="idle"){
         //     dispatch(getUserData())
         // }
-        if(notificationStatus!=="fulfilled"){
+        if(status!=="fulfilled" || notificationStatus!=="fulfilled"){
             dispatch(getUserData()).then(()=>dispatch(getUserNotification({userId})))
 
         
         }
     },[notificationStatus])
-    console.log(status,notificationStatus)
+    // console.log(status,notificationStatus)
     return(
         <>
-            <h2 className="flex p-3 text-2xl font-bold md:text-3xl items-center justify-center" >Notifications</h2>
+            <div className="flex p-3 text-2xl font-bold md:text-3xl items-center justify-center">
+                <h2>Notifications</h2>
+                <div className=" ml-5 flex justify-end ">
+                    <button title="clear notifications" onClick={()=>dispatch(clearUserNotification({userId}))} >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                    </button>
+                </div>
+                
+            </div>
 
             <div className="md:border-2 md:border-gray-200 md:m-5 rounded-md md:p-5 lg:mx-32 flex-col-reverse flex ">
                 {notificationStatus ==="loading" && <LoaderComponent/> }
 
                 {
-                    notifications.length>0?
+                    notifications?.length>0?
                     notifications?.map(notification =>(
                             <div key={notification._id} >
                                 <NotificationCard notification={notification} />

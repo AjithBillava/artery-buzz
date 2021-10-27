@@ -10,48 +10,26 @@ export const ConnectionPage = () =>{
     const {allUsers,currentUser,status} = useSelector(state=>state.user)
 
     const userFollowings = currentUser?.following
-    console.log(userFollowings,allUsers)
-    let notFollowedUsers = userFollowings?.map((followedUser)=>{
-        console.log(followedUser?._id)
-        return allUsers?.filter(user=>user?._id!==followedUser?._id && user?._id!==currentUser?._id ) 
-    })
-    
-
-    // const reducedNotFollowedUser = userFollowings?.reduce((notFoloowedUser,currValue)=>(
-    //      notFoloowedUser = allUsers?.filter(user=>user?._id!==currValue?._id && user?._id!==currentUser?._id)
-    //         // allUsers?.filter(user=>user?._id!==currValue && user?._id!==currentUser?._id)
-    // ),{})
-    
-    // const reducedNotFollowedUser = allUsers?.reduce((notFoolowedUser,currValue)=>{
-    //     return userFollowings?.forEach(user=>{
-    //         // console.log(user?._id,currValue?._id)
-    //         if(user?._id!==currValue?._id){
-    //             return notFoolowedUser={...notFoolowedUser,currValue}
-    //         }
-    //         console.log(notFoolowedUser)
-    //         return notFoolowedUser
-    //     })
-    // },{})
-
-    // console.log(notFollowedUsers,reducedNotFollowedUser)
-    let [notFollowedUser]=notFollowedUsers || []
+    // console.log(userFollowings,allUsers)
+   
+    let usersToConnect = allUsers?.filter(user=>user?._id!==currentUser?._id)
+  
+    // console.log(usersToConnect)
     return(
         <>
             <h2 className="flex p-3 font-bold text-2xl md:text-3xl items-center justify-center" >Connect with people</h2>
-            <div className=" flex flex-wrap justify-center md:border-2 md:border-gray-200 md:m-3 rounded-md md:p-5 lg:mx-32 ">
+            <div className=" flex flex-wrap justify-center pb-3 md:border-2 md:border-gray-200 md:m-3 rounded-md md:p-5 lg:mx-32 ">
                 
                 {
                     status==="loading" && <LoaderComponent/>
                 }
                 {   
-            
-                    // notFollowedUsers?.map((notFollowedUser)=>
-                        notFollowedUser?.map((user)=>(
-                            <PeopleCard user={user} status={status} following={userFollowings} loggedUserId ={currentUser?._id}
-                            // following={userFollowings}
-                            />
-                        ))
-                    // )
+                    usersToConnect?.map((user)=>(
+                        <div key={user._id}>
+                            <PeopleCard user={user} status={status} following={userFollowings} loggedUserId ={currentUser?._id}/>
+                        </div>
+                    ))
+                       
                     
                 }
             </div>

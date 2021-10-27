@@ -24,7 +24,7 @@ export const  RegisterPage = () =>{
     const handelOnSubmit =(e) =>{
         e.preventDefault()
         const {email,password,confirmPassword,firstname,lastname,username,} = getFormValues(e,"register")
-        console.log(email,password,confirmPassword,firstname,lastname,username)
+        // console.log(email,password,confirmPassword,firstname,lastname,username)
         if (validatePassword({password,confirmPassword})){
             dispatch(register({email,password,firstname,lastname,username,})).then((data)=>data?.user && navigate("/login"))
         }
